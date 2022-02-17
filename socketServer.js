@@ -4,12 +4,10 @@ const SocketServer = (socket) => {
   // connection-disconnection
   socket.on("join_user", (id) => {
     users.push({ id, socketId: socket.id });
-    console.log({ users });
   });
 
   socket.on("disconnect", () => {
     users = users.filter((user) => user.socketId !== socket.id);
-    console.log({ users });
   });
 
   // like post
@@ -140,6 +138,14 @@ const SocketServer = (socket) => {
         socket.to(`${cl.socketId}`).emit("delete_notify_to_client", msg);
       });
     }
+  });
+
+  // send message
+
+  socket.on("send_message", (msg) => {
+    console.log(msg);
+    const user = users.find((user) => user.id === msg.recipient);
+    user && socket.to(`${user.socketId}`).emit("send_message_to_client", msg);
   });
 };
 

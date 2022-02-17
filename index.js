@@ -13,6 +13,7 @@ const userRouter = require("./routers/userRouter");
 const postRouter = require("./routers/postRouter");
 const commentRouter = require("./routers/commentRouter");
 const notifyRouter = require("./routers/notifyRouter");
+const messageRouter = require("./routers/messageRouter");
 
 app.use(express.json());
 app.use(cors());
@@ -31,6 +32,7 @@ app.use("/api", userRouter);
 app.use("/api", postRouter);
 app.use("/api", commentRouter);
 app.use("/api", notifyRouter);
+app.use("/api", messageRouter);
 
 const URI = process.env.MONGODB_URL;
 mongoose.connect(
